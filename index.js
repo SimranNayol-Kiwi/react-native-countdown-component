@@ -62,8 +62,8 @@ class CountDown extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     if (this.props.until !== prevProps.until || this.props.id !== prevProps.id) {
       this.setState({
-        lastUntil: prevState.until,
-        until: Math.max(prevProps.until, 0)
+        lastUntil: this.props.until,
+        until: Math.max(this.props.until, 0)
       });
     }
   }
@@ -133,19 +133,13 @@ class CountDown extends React.Component {
   renderDigit = (d) => {
     const {digitStyle, digitTxtStyle, size} = this.props;
     return (
-      <View style={[
-        styles.digitCont,        
-        {width: size * 2.3, height: size * 2.6},
-        digitStyle,
+      <Text style={[
+        styles.digitTxt,
+        {fontSize: size},
+        digitTxtStyle,
       ]}>
-        <Text style={[
-          styles.digitTxt,
-          {fontSize: size},
-          digitTxtStyle,
-        ]}>
-          {d}
-        </Text>
-      </View>
+        {d}
+      </Text>
     );
   };
 
@@ -170,7 +164,6 @@ class CountDown extends React.Component {
         <View style={styles.timeInnerCont}>
           {this.renderDigit(digits)}
         </View>
-        {this.renderLabel(label)}
       </View>
     );
   };
@@ -178,15 +171,13 @@ class CountDown extends React.Component {
   renderSeparator = () => {
     const {separatorStyle, size} = this.props;
     return (
-      <View style={{justifyContent: 'center', alignItems: 'center'}}>
-        <Text style={[
-          styles.separatorTxt,
-          {fontSize: size * 1.2},
-          separatorStyle,
-        ]}>
-          {':'}
-        </Text>
-      </View>
+      <Text style={[
+        styles.separatorTxt,
+        {fontSize: size * 1.2},
+        separatorStyle,
+      ]}>
+        {':'}
+      </Text>
     );
   };
 
@@ -238,7 +229,7 @@ CountDown.defaultProps = {
 const styles = StyleSheet.create({
   timeCont: {
     flexDirection: 'row',
-    justifyContent: 'center',
+    alignItems: 'center',
   },
   timeTxt: {
     color: 'white',
@@ -263,7 +254,8 @@ const styles = StyleSheet.create({
   digitTxt: {
     color: 'white',
     fontWeight: 'bold',
-    fontVariant: ['tabular-nums']
+    fontVariant: ['tabular-nums'],
+    marginHorizontal: 2,
   },
   separatorTxt: {
     backgroundColor: 'transparent',
