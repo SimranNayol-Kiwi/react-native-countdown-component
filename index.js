@@ -173,7 +173,7 @@ class CountDown extends React.Component {
     return (
       <Text style={[
         styles.separatorTxt,
-        {fontSize: size * 1.2},
+        {fontSize: size},
         separatorStyle,
       ]}>
         {':'}
